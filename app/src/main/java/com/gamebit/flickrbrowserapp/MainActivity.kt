@@ -12,7 +12,7 @@ import com.gamebit.flickrbrowserapp.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete {
+class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete, GetFlickerJsonData.OnDataAvailable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate called")
@@ -42,10 +42,23 @@ class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete {
 
     override fun onDownloadComplete(data: String, status: DownloadStatus) {
         if (status == DownloadStatus.OK) {
-            Log.d(TAG, "onDownloadComplete called, data is $data")
+            Log.d(TAG, "onDownloadComplete called")
+
+            val getFlickrJsonData = GetFlickerJsonData(this)
+            getFlickrJsonData.execute(data)
         } else {
-            Log.d(TAG, "onDownloadCompleted failed with $status. Error Message is $data")
+            Log.d(TAG, "onDownloadComplete failed with $status. Error Message is $data")
         }
+    }
+
+    override fun onDataAvailable(data: List<Photo>) {
+        Log.d(TAG, ".onDataAvailable called, data is $data")
+
+        Log.d(TAG, ".onDataAvailable ends")
+    }
+
+    override fun onError(exception: Exception) {
+        Log.d(TAG, ".onError called with ${exception.message}")
     }
 }
 
