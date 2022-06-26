@@ -2,6 +2,7 @@
 Android App Development Masterclass using Kotlin - Flickr Browser App
 
 This app is a Flickr Browser, which will allow us to query and download a list of recent photos from the hugely popular Flickr website.
+https://www.flickr.com/services/feeds/docs/photos_public/ 
 
 ### This app contains:
 #### Material Design
