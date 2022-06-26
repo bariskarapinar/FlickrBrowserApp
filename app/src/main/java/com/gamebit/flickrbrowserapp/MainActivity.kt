@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val getRawData = GetRawData()
+        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,oreo&format=json&nojsoncallback=1")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -41,4 +43,26 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
     }
+
+    fun onDownloadComplete(data: String, status: DownloadStatus) {
+        if (status == DownloadStatus.OK) {
+            Log.d(TAG, "onDownloadComplete called, data is $data")
+        } else {
+            Log.d(TAG, "onDownloadCompleted failed with $status, data is $data")
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
