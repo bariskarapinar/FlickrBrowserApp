@@ -1,5 +1,7 @@
 package com.gamebit.flickrbrowserapp
 
+import android.net.Uri
+import android.nfc.NdefRecord.createUri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -20,8 +22,23 @@ class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete, GetFlic
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val url = createUri ("https://api.flickr.com/services/feeds/photos_public.gne", "android,oreo","en-us", true)
         val getRawData = GetRawData(this)
-        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,oreo&format=json&nojsoncallback=1")
+        getRawData.execute(url)
+    }
+
+    private fun createUri(baseURL: String, searchCriteria: String, lang: String, matchAll: Boolean): String {
+        Log.d(TAG, ".createUri starts")
+
+        var uri = Uri.parse(baseURL)
+                .buildUpon()
+                .appendQueryParameter("tags", searchCriteria)
+                .appendQueryParameter("tagmode", if (matchAll) "ALL" else "ANY")
+                .appendQueryParameter("lang", lang)
+                .appendQueryParameter("format", "json")
+                .appendQueryParameter("nojsoncallback", "1")
+                .build()
+        return uri.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
