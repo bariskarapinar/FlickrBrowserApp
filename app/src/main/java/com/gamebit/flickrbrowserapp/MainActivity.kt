@@ -30,15 +30,14 @@ class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete, GetFlic
     private fun createUri(baseURL: String, searchCriteria: String, lang: String, matchAll: Boolean): String {
         Log.d(TAG, ".createUri starts")
 
-        var uri = Uri.parse(baseURL)
+        return Uri.parse(baseURL)
                 .buildUpon()
                 .appendQueryParameter("tags", searchCriteria)
                 .appendQueryParameter("tagmode", if (matchAll) "ALL" else "ANY")
                 .appendQueryParameter("lang", lang)
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
-                .build()
-        return uri.toString()
+                .build().toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
