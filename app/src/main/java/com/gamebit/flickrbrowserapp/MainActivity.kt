@@ -1,17 +1,11 @@
 package com.gamebit.flickrbrowserapp
 
 import android.net.Uri
-import android.nfc.NdefRecord.createUri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import com.gamebit.flickrbrowserapp.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), GetRawData.OnDownloadComplete, GetFlickerJsonData.OnDataAvailable {
