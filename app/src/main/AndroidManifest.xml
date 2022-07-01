@@ -16,11 +16,19 @@
         android:theme="@style/Theme.FlickrBrowserApp"
         tools:targetApi="31">
         <activity
-            android:name=".PhotoDetailsActivity"
-            android:exported="false" />
+            android:name=".PhotoDetailsActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".SearchActivity"
-            android:exported="false" />
+            android:label="SearchActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
