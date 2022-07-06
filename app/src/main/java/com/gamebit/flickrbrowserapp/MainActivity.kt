@@ -98,6 +98,11 @@ class MainActivity : BaseActivity(),
     override fun onError(exception: Exception) {
         Log.d(TAG, ".onError called with ${exception.message}")
     }
+
+    override fun onResume() {
+        Log.d(TAG, ".onResume Starts")
+        super.onResume()
+    }
 }
 
 

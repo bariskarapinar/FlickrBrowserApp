@@ -28,6 +28,17 @@ class SearchActivity : BaseActivity() {
         searchView?.setSearchableInfo(searchableInfo)
 
         searchView?.isIconified = false
+
+        searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                finish()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
         return true
     }
 }
