@@ -1,8 +1,10 @@
 package com.gamebit.flickrbrowserapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -26,10 +28,6 @@ class MainActivity : BaseActivity(),
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this, recycler_view, this))
         recycler_view.adapter = flickrRecyclerViewAdapter
-
-        val url = createUri ("https://api.flickr.com/services/feeds/photos_public.gne", "android,oreo","en-us", true)
-        val getRawData = GetRawData(this)
-        getRawData.execute(url)
     }
 
     override fun onItemClick(view: View, position: Int) {
@@ -102,19 +100,14 @@ class MainActivity : BaseActivity(),
     override fun onResume() {
         Log.d(TAG, ".onResume Starts")
         super.onResume()
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val queryResult = sharedPref.getString(FLICKR_QUERY, "")
+
+        if (queryResult!!.isNotEmpty()) {
+            val url = createUri ("https://api.flickr.com/services/feeds/photos_public.gne", queryResult,"en-us", true)
+            val getRawData = GetRawData(this)
+            getRawData.execute(url)
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
